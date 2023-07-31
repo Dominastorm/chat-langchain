@@ -13,16 +13,16 @@ from query_data import get_chain
 from schemas import ChatResponse
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="../templates")
 vectorstore: Optional[VectorStore] = None
 
 
 @app.on_event("startup")
 async def startup_event():
     logging.info("loading vectorstore")
-    if not Path("vectorstore.pkl").exists():
+    if not Path("../data/vectorstore.pkl").exists():
         raise ValueError("vectorstore.pkl does not exist, please run ingest.py first")
-    with open("vectorstore.pkl", "rb") as f:
+    with open("../data/vectorstore.pkl", "rb") as f:
         global vectorstore
         vectorstore = pickle.load(f)
 
